@@ -1,7 +1,7 @@
 <?php 
 session_start();
 
-include '../connection.php';
+include '../service/connection.php';
 
 $getObat = mysqli_query($conn, "SELECT 
     k.*,

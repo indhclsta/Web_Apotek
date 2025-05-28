@@ -100,7 +100,7 @@
             </thead>
             <tbody>
                 <?php
-                include "../connection.php";
+                include "../service/connection.php";
                 $id = 1;
                 $ambildata = mysqli_query($conn, "select * from report");
                 while ($tampil = mysqli_fetch_array($ambildata)) {

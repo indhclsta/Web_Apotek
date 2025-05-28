@@ -1,10 +1,10 @@
 <?php
 session_start();
-include '../connection.php';
+include '../service/connection.php';
 
 // Check if user is logged in
 if (!isset($_SESSION['username'])) {
-    header("Location: login.php"); // Redirect to login page if not logged in
+    header("Location: ./service/login.php"); // Redirect to login page if not logged in
     exit();
 }
 

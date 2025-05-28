@@ -1,10 +1,10 @@
 <?php
 session_start();
-include '../connection.php'; // Pastikan koneksi ke database sudah ada
+include '../service/connection.php'; // Pastikan koneksi ke database sudah ada
 
 // Cek apakah user sudah login
 if (!isset($_SESSION['id'])) {
-    header("Location: ../login.php"); // Redirect ke halaman login jika belum login
+    header("Location: ../service/login.php"); // Redirect ke halaman login jika belum login
     exit();
 }
 

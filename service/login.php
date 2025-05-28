@@ -8,10 +8,10 @@ include 'connection.php';
 
 switch (isset($_SESSION['level'])) {
     case 'admin':
-        header('location: admin/homeadmin.php');
+        header('location: ../admin/homeadmin.php');
         break;
     case 'user':
-        header('location: customer/dashboard.php');
+        header('location: ../customer/dashboard.php');
         break;
 }
 
@@ -37,10 +37,10 @@ if (isset($_POST['submit'])) {
 
         switch ($row['level']) {
             case 'admin':
-                header('location: admin/homeadmin.php');
+                header('location: ../admin/homeadmin.php');
                 break;
             case 'user':
-                header('location: customer/dashboard.php');
+                header('location: ../customer/dashboard.php');
                 break;
         }
 

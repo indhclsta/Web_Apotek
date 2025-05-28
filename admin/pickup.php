@@ -1,5 +1,5 @@
 <?php
-include "../connection.php"; // Include your database connection
+include "../service/connection.php"; // Include your database connection
 
 // Query to fetch pickup data
 $query = "SELECT * FROM pickup ORDER BY no_pesanan DESC";
@@ -199,7 +199,7 @@ if (mysqli_num_rows($result) > 0) {
 
         <!-- Order items -->
         <?php
-        include "../connection.php";
+        include "../service/connection.php";
 
         // Query to get data of orders
         $query = "SELECT * FROM pickup ORDER BY no_pesanan DESC"; // Sort by order number

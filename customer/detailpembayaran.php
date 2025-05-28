@@ -3,7 +3,7 @@ session_start();
 
 date_default_timezone_set("Asia/Jakarta");
 
-include '../connection.php';
+include '../service/connection.php';
 
 if(!isset($_SESSION['cart'])) {
     header("Location: keranjang.php");

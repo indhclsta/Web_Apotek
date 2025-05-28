@@ -1,5 +1,5 @@
 <?php
-include "../connection.php";
+include "../service/connection.php";
 $sql = mysqli_query($conn, "select * from report where Id ='$_GET[kode]'");
 $ambildata = mysqli_fetch_array($sql);
 ?>

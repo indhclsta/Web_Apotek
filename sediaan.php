@@ -287,7 +287,7 @@
       </div>
       <!-- Tombol untuk membuka modal login -->
       <div>
-    <button id="openModalBtn" class="open-modal-btn" onclick="location.href='login.php'">Login</button>
+    <button id="openModalBtn" class="open-modal-btn" onclick="location.href='./service/login.php'">Login</button>
       </div>
    </header>
 

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include '../connection.php';
+include '../service/connection.php';
 
 $getAllTransactionItems = mysqli_query($conn, "SELECT 
     transaksi.id_transaksi,

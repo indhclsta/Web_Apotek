@@ -1,5 +1,5 @@
 <?php
-include "../connection.php"; // Pastikan file koneksi sudah benar
+include "../service/connection.php"; // Pastikan file koneksi sudah benar
 
 if (isset($_GET['kode'])) {
     // Amankan input untuk mencegah SQL injection

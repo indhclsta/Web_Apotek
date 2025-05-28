@@ -1,6 +1,6 @@
 <?php
 session_start();
-include '../connection.php';
+include '../service/connection.php';
 
 // Cek apakah ID produk ada di URL
 if (isset($_GET['id'])) {

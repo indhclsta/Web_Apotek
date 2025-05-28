@@ -1,5 +1,5 @@
 <?php
-include "../connection.php";
+include "../service/connection.php";
 
 if (isset($_GET['no_pesanan'])) {
     $no_pesanan = $_GET['no_pesanan'];

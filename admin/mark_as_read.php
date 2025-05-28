@@ -1,10 +1,10 @@
 <?php
 session_start();
-include '../connection.php';
+include '../service/connection.php';
 
 // Cek apakah admin sudah login
 if (!isset($_SESSION['username'])) {
-    header("Location: ../login.php"); // Redirect jika admin belum login
+    header("Location: ../service/login.php"); // Redirect jika admin belum login
     exit();
 }
 

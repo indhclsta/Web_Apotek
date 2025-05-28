@@ -222,7 +222,7 @@ session_start();
             // localStorage.clear();
 
             // Redirect ke halaman logout.php
-            window.location.href = '../logout.php';  // Sesuaikan dengan URL logout yang sesuai
+            window.location.href = '../service/logout.php';  // Sesuaikan dengan URL logout yang sesuai
         }
     </script>
 

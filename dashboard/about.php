@@ -229,10 +229,9 @@
       </div>
       <nav>
          <ul>
-            <li><a href="home.php">Home</a></li>
-            <li><a href="about.php">About</a></li>
-            <li><a href="sediaan.php">Sediaan</a></li>
-            <li><a href="contact.php">Contact</a></li>
+            <li><a href="../dashboard/home.php">Home</a></li>
+            <li><a href="../dashboard/about.php">About</a></li>
+            <li><a href="../dashboard/contact.php">Contact</a></li>
          </ul>
       </nav>
       <div class="search">
@@ -240,7 +239,7 @@
       </div>
       <!-- Tombol untuk membuka modal login -->
       <div>
-    <button id="openModalBtn" class="open-modal-btn" onclick="location.href='login.php'">Login</button>
+    <button id="openModalBtn" class="open-modal-btn" onclick="location.href='./service/login.php'">Login</button>
       </div>
 
    </header>

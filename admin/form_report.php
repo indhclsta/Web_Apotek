@@ -83,7 +83,7 @@
 
 
 <?php
-include"../connection.php";
+include"../service/connection.php";
 
 if(isset($_POST ['proses'])){
     $result = $conn->query("SELECT * from report WHERE Tanggal='$_POST[tanggal]' ");

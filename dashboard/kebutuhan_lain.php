@@ -31,7 +31,7 @@
           <p class="text-[#FF7F00] font-bold text-lg">Rp 53.900</p>
         </div>
         <div class="flex justify-between items-center mt-4">
-        <button class="bg-[#FF7F00] text-white px-4 py-2 rounded-full flex items-center gap-2 hover:bg-orange-600" onclick="window.location.href='login.php';">
+        <button class="bg-[#FF7F00] text-white px-4 py-2 rounded-full flex items-center gap-2 hover:bg-orange-600" onclick="window.location.href='./service/login.php';">
         <i class="fas fa-shopping-cart"></i> Beli
         </button>
 

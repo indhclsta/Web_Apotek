@@ -1,6 +1,6 @@
 <?php
 session_start();
-include '../connection.php';  // Pastikan file koneksi database sudah terhubung
+include '../service/connection.php';  // Pastikan file koneksi database sudah terhubung
 
 // Mengecek apakah ada status pembayaran dan apakah statusnya adalah 'success'
 if (isset($_POST['payment_status']) && $_POST['payment_status'] == 'success') {

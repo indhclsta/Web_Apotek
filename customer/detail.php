@@ -1,6 +1,6 @@
 <?php
 session_start();
-include '../connection.php';
+include '../service/connection.php';
 
 if (!isset($_GET['product'])) {
     header("Location: dashboard.php");

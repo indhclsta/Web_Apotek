@@ -3,7 +3,7 @@
 session_start();
 
 // Sertakan koneksi database
-include '../connection.php';
+include '../service/connection.php';
 
 // Periksa apakah ID produk ada di parameter URL
 if (isset($_GET['id'])) {

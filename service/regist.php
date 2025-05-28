@@ -44,7 +44,7 @@ if (isset($_POST['register'])) {
 </head>
 
 <body class="flex items-center justify-center min-h-screen relative">
-    <a href="home.php" class="absolute top-4 left-4 text-[#7a6e5d] hover:underline">
+    <a href="../dashboard/home.php" class="absolute top-4 left-4 text-[#7a6e5d] hover:underline">
         <i class="fas fa-arrow-left"></i> Back
     </a>
     <div class="flex items-center space-x-2">

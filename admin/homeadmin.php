@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include '../connection.php';
+include '../service/connection.php';
 
 $getAllObat = mysqli_query($conn, "SELECT * FROM obat");
 
@@ -19,11 +19,11 @@ if (isset($_GET['delete']) && $_GET['delete'] == 'success') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apotik-home</title>
+    <title>Apotik Admin Dashboard</title>
     <!-- Sertakan Google Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet" />
+   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
    <script src="https://cdn.tailwindcss.com"></script>
    <!-- Bootstrap 5 CSS CDN -->
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -31,6 +31,19 @@ if (isset($_GET['delete']) && $_GET['delete'] == 'success') {
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
    <link rel="stylesheet" href="../css/style.css">
     <style>
+        :root {
+            --primary: #3a7bd5;
+            --primary-light: #5a9bf8;
+            --secondary: #00d2ff;
+            --accent: #ff7e5f;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -38,56 +51,74 @@ if (isset($_GET['delete']) && $_GET['delete'] == 'success') {
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background-color: #faf3e0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f7ff;
+            color: var(--dark);
         }
 
         .container {
             padding: 20px;
             min-height: calc(100vh - 80px);
-            padding-bottom: 80px;
+            padding-bottom: 100px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-}
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 20px;
+        }
 
-.icons-left {
-    display: flex;
-    align-items: center;
-    margin-left: auto;  /* This aligns the icons to the left */
-}
+        .icons-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
 
-.icon-button {
-    background-color: transparent;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 20px;  /* Spacing between the icons */
-    cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
+        .icon-button {
+            background-color: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            border: none;
+        }
 
-.icon-button span {
-    font-size: 24px;
-    color: #000;
-}
+        .icon-button:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
 
+        .icon-button:hover span {
+            color: white;
+        }
+
+        .icon-button span {
+            font-size: 20px;
+            color: var(--primary);
+        }
 
         .user-info {
             display: flex;
             align-items: center;
+            gap: 12px;
         }
 
         .user-icon {
             font-size: 36px;
-            margin-right: 10px;
+            color: var(--primary);
         }
 
         .user-text {
@@ -96,62 +127,53 @@ if (isset($_GET['delete']) && $_GET['delete'] == 'success') {
         }
 
         .user-text .user {
-            color: orange;
-            font-weight: bold;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 14px;
         }
 
         .user-text .admin {
-            color: black;
-        }
-
-        .icons {
-            display: flex;
-            align-items: center;
-        }
-
-        .icon-button {
-            background-color: transparent;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-left: 20px;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .icon-button span {
-            font-size: 24px;
-            color: #000;
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 16px;
         }
 
         h1 {
-            font-size: 3rem;
+            font-size: 2.5rem;
             text-align: center;
-            margin-top: 50px; 
+            margin: 30px 0;
+            color: var(--primary);
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .search-container {
             display: flex;
             justify-content: center;
-            margin-top: 20px;
+            margin: 25px 0;
         }
 
         .search-box {
-            width: 30%;
+            width: 50%;
             height: 55px;
-            padding: 10px 10px 10px 20px;
+            padding: 10px 20px;
             font-size: 1rem;
-            border: 2px solid #ddd;
-            border-radius: 25px;
+            border: 2px solid #e2e8f0;
+            border-radius: 30px;
             outline: none;
-            box-shadow: none;
             display: flex;
             align-items: center;
             position: relative;
             background-color: white;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(58, 123, 213, 0.2);
         }
 
         .search-box input {
@@ -159,169 +181,191 @@ if (isset($_GET['delete']) && $_GET['delete'] == 'success') {
             width: 100%;
             outline: none;
             background: transparent;
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark);
         }
 
         .search-box input::placeholder {
-            color: #aaa;
+            color: #94a3b8;
         }
 
         .search-icon {
-            position: absolute;
             right: 15px;
             font-size: 24px;
-            color: #aaa;
+            color: var(--primary);
         }
 
-        .categories-title {
-            font-size: 1.3rem;
-            margin: 30px 0 10px;
-            font-weight: bold;
-            text-align: left;
+        .section-title {
+            font-size: 1.5rem;
+            margin: 30px 0 15px;
+            font-weight: 600;
+            color: var(--primary);
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .section-title:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            height: 70%;
+            width: 5px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            border-radius: 5px;
         }
 
         .categories {
             display: flex;
             justify-content: flex-start;
-            margin-top: 10px;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
         }
 
         .category {
             display: flex;
             align-items: center;
-            background-color: #fff;
+            background-color: white;
             border-radius: 15px;
-            width: 180px;
-            height: 60px;
-            margin-right: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            padding: 5px;
+            min-width: 180px;
+            height: 70px;
+            box-shadow: var(--card-shadow);
+            padding: 0 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+
+        .category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
 
         .category-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-right: 10px;
+            margin-right: 15px;
+            color: white;
+            font-weight: 600;
+            font-size: 20px;
         }
 
         .category:nth-child(1) .category-icon {
-            background-color: green;
+            background: linear-gradient(135deg, var(--success), #86efac);
         }
 
         .category:nth-child(2) .category-icon {
-            background-color: blue;
+            background: linear-gradient(135deg, var(--warning), #fcd34d);
         }
 
         .category:nth-child(3) .category-icon {
-            background-color: red;
-            color: black;
-            font-weight: bold;
-            font-size: 24px;
+            background: linear-gradient(135deg, var(--danger), #fca5a5);
         }
 
         .category-text {
-            font-size: 0.9rem;
-            color: #333;
-            flex-grow: 1;
-        }
-        .product-title {
-            font-size: 1.3rem;
-            margin: 30px 0 10px;
-            font-weight: bold;
-            text-align: left;
-        }
-        .latest-products-title {
-            font-size: 1.3rem;
-            margin: 30px 0 10px;
-            font-weight: bold;
-            text-align: left;
+            font-size: 1rem;
+            color: var(--dark);
+            font-weight: 500;
         }
 
-        .latest-products {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            margin-top: 10px;
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
         }
 
         .product-box {
-    position: relative;
-    background-color: #fff;
-    border-radius: 15px;
-    width: 150px;
-    margin-right: 10px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    text-align: center;
-}
+            position: relative;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+        }
 
-/* Menyembunyikan tombol update dan delete secara default */
-.product-actions {
-    display: none;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-}
+        .product-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
 
-/* Menampilkan tombol update dan delete saat hover */
-.product-box:hover .product-actions {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-}
-
-.icon-button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    margin: 5px 0;
-    padding: 5px;
-    font-size: 20px;
-    color: #333;
-    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Efek hover pada tombol */
-.icon-button:hover {
-    transform: scale(1.2);  /* Membesarkan ikon */
-    background-color: rgba(0, 0, 0, 0.1);  /* Warna latar belakang saat hover */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);  /* Menambahkan bayangan */
-}
-
-/* Ikon update dan delete */
-.update-button span, .delete-button span {
-    font-size: 24px;
-}
-
-/* Warna ikon saat hover */
-.update-button:hover span {
-    color: #4CAF50;  /* Warna hijau untuk tombol update */
-}
-
-.delete-button:hover span {
-    color: #F44336;  /* Warna merah untuk tombol delete */
-}
-
-/* Menambahkan animasi saat hover */
-.product-box:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-}
-
+        .product-box img {
+            width: 100%;
+            height: 120px;
+            object-fit: contain;
+            margin-bottom: 10px;
+            border-radius: 8px;
+        }
 
         .product-name {
-            font-size: 1rem;
-            color: #333;
+            font-size: 0.95rem;
+            color: var(--dark);
             margin-bottom: 5px;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .product-price {
             font-size: 0.9rem;
-            color: #777;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .product-actions {
+            display: none;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: white;
+            border-radius: 20px;
+            padding: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-box:hover .product-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .action-button {
+            background: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: white;
+        }
+
+        .action-button span {
+            font-size: 16px;
+        }
+
+        .update-button {
+            background: var(--success);
+        }
+
+        .delete-button {
+            background: var(--danger);
+        }
+
+        .action-button:hover {
+            transform: scale(1.1);
         }
 
         .add-product-box {
@@ -329,182 +373,212 @@ if (isset($_GET['delete']) && $_GET['delete'] == 'success') {
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background-color: #fff;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
             border-radius: 15px;
-            width: 150px;
-            height: 200px;
-            margin-right: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            padding: 10px;
+            box-shadow: var(--card-shadow);
+            padding: 15px;
             text-align: center;
-            color: black;
+            color: white;
             cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .add-product-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
         }
 
         .add-product-box .material-icons {
-            font-size: 48px;
+            font-size: 40px;
             margin-bottom: 10px;
         }
 
         .add-product-text {
-            font-size: 1rem;
-            color: #333;
+            font-size: 0.95rem;
+            font-weight: 500;
         }
 
-        .bottom-icons {
+        .bottom-nav {
             position: fixed;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
             display: flex;
-            justify-content: center;
-            background-color: black;
-            padding: 10px 20px;
-            border-radius: 25px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            justify-content: space-around;
+            padding: 12px 0;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
         }
 
-        .bottom-icon {
+        .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 0 15px;
-            color: #333;
-            cursor: pointer;
-        }
-
-        .bottom-icon .material-icons {
-            font-size: 24px;
-            color: orange;
-        }
-
-        .bottom-icon .icon-text {
+            color: #64748b;
+            text-decoration: none;
             font-size: 0.8rem;
-            margin-top: 5px;
-            color: orange;
+            transition: all 0.3s ease;
+            padding: 5px 15px;
+            border-radius: 10px;
         }
 
-        .bottom-icon:nth-child(2) .material-icons,
-        .bottom-icon:nth-child(3) .material-icons {
-            color: white;
+        .nav-item.active, .nav-item:hover {
+            color: var(--primary);
+            background: rgba(58, 123, 213, 0.1);
         }
 
-        .bottom-icon:nth-child(2) .icon-text,
-        .bottom-icon:nth-child(3) .icon-text {
+        .nav-item .material-icons {
+            font-size: 24px;
+            margin-bottom: 3px;
+        }
+
+        .nav-item.active .material-icons {
+            font-weight: bold;
+        }
+
+        /* Success notification */
+        .alert-success {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--success);
             color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-    <header>
-    <div class="user-info">
-        <a href="./profileadmin.php">
-            <i class="bi bi-person-circle" style="font-size: 40px; margin-left:10px; margin-right:20px;"></i>
-        </a>
-        <div class="user-text">
-            <span class="user">User</span>
-            <span class="admin">Admin</span>
-        </div>
-    </div>
-    <div class="icons-left">
-        <!-- Move notification icon to the left -->
-        <button class="icon-button">
-            <a href="notifadmin.php">
-                <span class="material-icons">notifications</span>
-            </a>
-        </button>
-        
-        <!-- Change shopping icon to pickup icon and align left -->
-        <button class="icon-button">
-            <a href="pickup.php">
-                <span class="material-icons">local_shipping</span> <!-- 'local_shipping' is used here for pickup -->
-            </a>
-        </button>
-    </div>
-</header>
+        <header>
+            <div class="user-info">
+                <a href="profileadmin.php">
+                    <i class="bi bi-person-circle user-icon"></i>
+                </a>
+                <div class="user-text">
+                    <span class="user">Hello, Admin</span>
+                    <span class="admin">Apotek Dashboard</span>
+                </div>
+            </div>
+            <div class="icons-left">
+                <button class="icon-button">
+                    <a href="notifadmin.php">
+                        <span class="material-icons">notifications</span>
+                    </a>
+                </button>
+                <button class="icon-button">
+                    <a href="pickup.php">
+                        <span class="material-icons">local_shipping</span>
+                    </a>
+                </button>
+            </div>
+        </header>
 
-
-        <h1 class="text-3xl font-bold mb-4">APOTEKER</h1>
+        <h1>Pharmacy Management</h1>
 
         <div class="search-container">
             <div class="search-box">
-                <input type="text" placeholder="Search by your Product">
+                <input type="text" placeholder="Search medicines...">
                 <span class="material-icons search-icon">search</span>
             </div>
         </div>
 
-        <div class="categories-title">Categories</div>
+        <div class="section-title">Medicine Categories</div>
 
         <div class="categories">
             <div class="category">
                 <div class="category-icon">U</div>
-                <div class="category-text">Umum</div>
+                <div class="category-text">General Medicines</div>
             </div>
             <div class="category">
                 <div class="category-icon">B</div>
-                <div class="category-text">Bebas Terbatas</div>
+                <div class="category-text">Limited Free</div>
             </div>
             <div class="category">
-                <div class="category-icon">
-                    K
-                </div> 
-                <div class="category-text">Keras</div>
+                <div class="category-icon">K</div>
+                <div class="category-text">Hard Medicines</div>
             </div>
         </div>
-        <div class="product-title">Product</div>
-        <div class="latest-products">
+        
+        <div class="section-title">Medicine Inventory</div>
+        
+        <div class="products-grid">
             <?php foreach ($obats as $obat): ?>
             <div class="product-box">
-                <img src="../img/<?= $obat['gambar'] ?>" alt="Product 1" width="100%">
+                <img src="../img/<?= $obat['gambar'] ?>" alt="<?= $obat['merek'] ?>">
                 <div class="product-name"><?= $obat['merek'] ?></div>
-                <div class="product-price">Rp. <?= $obat['harga'] ?></div>
+                <div class="product-price">Rp <?= number_format($obat['harga'], 0, ',', '.') ?></div>
 
                 <div class="product-actions">
-                    <button class="icon-button update-button" onclick="window.location.href='updateproduct.php?id=<?= $obat['id'] ?>'">
+                    <button class="action-button update-button" onclick="window.location.href='updateproduct.php?id=<?= $obat['id'] ?>'">
                         <span class="material-icons">edit</span>
                     </button>
-                    <button class="icon-button delete-button" onclick="deleteProduct(<?= $obat['id'] ?>)">
+                    <button class="action-button delete-button" onclick="deleteProduct(<?= $obat['id'] ?>)">
                         <span class="material-icons">delete</span>
                     </button>
                 </div>
             </div>
             <?php endforeach; ?>
+            
             <div class="add-product-box" onclick="window.location.href='createproduk.php'">
                 <span class="material-icons">add</span>
-                <div class="add-product-text">Add Product</div>
+                <div class="add-product-text">Add Medicine</div>
             </div>
         </div>
     </div>
-           
 
-    <!-- Kolom Bawah dengan Ikon Home, Orders, Profile -->
-   <!-- Kolom Bawah dengan Ikon Home, Payment, Report -->
-<div class="bottom-icons">
-    <div class="bottom-icon" onclick="window.location.href='homeadmin.php'">
-        <span class="material-icons">home</span>
-        <div class="icon-text">Home</div>
-    </div>
-    <div class="bottom-icon" onclick="window.location.href='payment.php'">
-        <span class="material-icons">payment</span>
-        <div class="icon-text">Payment</div>
-    </div>
-    <div class="bottom-icon" onclick="window.location.href='tabeladmin.php'">
-        <span class="material-icons">report</span>
-        <div class="icon-text">Report</div>
-    </div>
-</div>
-
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="homeadmin.php" class="nav-item active">
+            <span class="material-icons">home</span>
+            <span>Home</span>
+        </a>
+        <a href="payment.php" class="nav-item">
+            <span class="material-icons">payments</span>
+            <span>Payments</span>
+        </a>
+        <a href="tabeladmin.php" class="nav-item">
+            <span class="material-icons">assessment</span>
+            <span>Reports</span>
+        </a>
+    </nav>
 
     <script>
         function deleteProduct(id) {
-            if (confirm("Are you sure you want to delete this product?")) {
+            if (confirm("Are you sure you want to delete this medicine?")) {
                 window.location.href = "deleteproduct.php?id=" + id;
             }
         }
+        
+        // Add active class to current page in bottom nav
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = window.location.pathname.split('/').pop();
+            const navItems = document.querySelectorAll('.nav-item');
+            
+            navItems.forEach(item => {
+                if (item.getAttribute('href') === currentPage) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        });
     </script>
 
 </body>
-</html>
+</html> 

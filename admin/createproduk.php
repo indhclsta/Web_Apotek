@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include '../connection.php';
+include '../service/connection.php';
 
 $getKategori = mysqli_query($conn, "SELECT * FROM kategori");
 
