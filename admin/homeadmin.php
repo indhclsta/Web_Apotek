@@ -20,295 +20,190 @@ if (isset($_GET['delete']) && $_GET['delete'] == 'success') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Apotik Admin Dashboard</title>
-    <!-- Sertakan Google Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-   <script src="https://cdn.tailwindcss.com"></script>
-   <!-- Bootstrap 5 CSS CDN -->
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-   <!-- icon bootstrap -->
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-   <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         :root {
-            --primary: #3a7bd5;
-            --primary-light: #5a9bf8;
-            --secondary: #00d2ff;
-            --accent: #ff7e5f;
-            --light: #f8fafc;
-            --dark: #1e293b;
+            --primary: #7c3aed;
+            --primary-light: #8b5cf6;
+            --primary-lighter: #c4b5fd;
+            --dark: #1e1b4b;
+            --light: #f5f3ff;
             --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
-            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
         }
 
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #f0f7ff;
+            background-color: var(--light);
             color: var(--dark);
         }
 
         .container {
-            padding: 20px;
-            min-height: calc(100vh - 80px);
-            padding-bottom: 100px;
             max-width: 1200px;
             margin: 0 auto;
+            padding: 1rem;
+            padding-bottom: 6rem;
         }
 
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 20px;
+            padding: 1rem;
             background: white;
-            border-radius: 12px;
-            box-shadow: var(--card-shadow);
-            margin-bottom: 20px;
-        }
-
-        .icons-left {
-            display: flex;
-            align-items: center;
-            gap: 15px;
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
         }
 
         .icon-button {
-            background-color: white;
+            width: 2.5rem;
+            height: 2.5rem;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
             display: flex;
-            justify-content: center;
             align-items: center;
-            cursor: pointer;
-            box-shadow: var(--card-shadow);
-            transition: all 0.3s ease;
-            border: none;
+            justify-content: center;
+            color: var(--primary);
+            transition: all 0.2s ease;
         }
 
         .icon-button:hover {
             background-color: var(--primary);
             color: white;
-            transform: translateY(-2px);
-        }
-
-        .icon-button:hover span {
-            color: white;
-        }
-
-        .icon-button span {
-            font-size: 20px;
-            color: var(--primary);
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
         }
 
         .user-icon {
-            font-size: 36px;
             color: var(--primary);
-        }
-
-        .user-text {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .user-text .user {
-            color: var(--primary);
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .user-text .admin {
-            color: var(--dark);
-            font-weight: 500;
-            font-size: 16px;
+            font-size: 1.75rem;
         }
 
         h1 {
-            font-size: 2.5rem;
-            text-align: center;
-            margin: 30px 0;
+            font-size: 1.75rem;
+            font-weight: 600;
             color: var(--primary);
-            font-weight: 700;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .search-container {
-            display: flex;
-            justify-content: center;
-            margin: 25px 0;
+            margin: 1.5rem 0;
+            text-align: center;
         }
 
         .search-box {
-            width: 50%;
-            height: 55px;
-            padding: 10px 20px;
-            font-size: 1rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 30px;
-            outline: none;
-            display: flex;
-            align-items: center;
+            width: 100%;
+            max-width: 500px;
+            margin: 1.5rem auto;
             position: relative;
-            background-color: white;
-            box-shadow: var(--card-shadow);
-            transition: all 0.3s ease;
-        }
-
-        .search-box:focus-within {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(58, 123, 213, 0.2);
         }
 
         .search-box input {
-            border: none;
             width: 100%;
+            padding: 0.75rem 1rem;
+            padding-right: 2.5rem;
+            border-radius: 9999px;
+            border: 1px solid #e2e8f0;
             outline: none;
-            background: transparent;
-            font-family: 'Poppins', sans-serif;
-            color: var(--dark);
+            transition: all 0.2s ease;
         }
 
-        .search-box input::placeholder {
-            color: #94a3b8;
+        .search-box input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
         }
 
         .search-icon {
-            right: 15px;
-            font-size: 24px;
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
             color: var(--primary);
         }
 
         .section-title {
-            font-size: 1.5rem;
-            margin: 30px 0 15px;
+            font-size: 1.25rem;
             font-weight: 600;
             color: var(--primary);
+            margin: 1.5rem 0 1rem;
             position: relative;
-            padding-left: 15px;
+            padding-left: 1rem;
         }
 
         .section-title:before {
             content: '';
             position: absolute;
             left: 0;
-            top: 5px;
-            height: 70%;
-            width: 5px;
-            background: linear-gradient(to bottom, var(--primary), var(--secondary));
-            border-radius: 5px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--primary);
+            border-radius: 2px;
         }
 
         .categories {
             display: flex;
-            justify-content: flex-start;
-            gap: 15px;
-            margin-top: 15px;
+            gap: 1rem;
+            margin: 1rem 0;
             flex-wrap: wrap;
         }
 
         .category {
+            flex: 1;
+            min-width: 150px;
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1rem;
             display: flex;
             align-items: center;
-            background-color: white;
-            border-radius: 15px;
-            min-width: 180px;
-            height: 70px;
-            box-shadow: var(--card-shadow);
-            padding: 0 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
         }
 
         .category:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
         }
 
         .category-icon {
-            width: 45px;
-            height: 45px;
-            border-radius: 12px;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 0.5rem;
             display: flex;
-            justify-content: center;
             align-items: center;
-            margin-right: 15px;
+            justify-content: center;
             color: white;
+            margin-right: 1rem;
             font-weight: 600;
-            font-size: 20px;
-        }
-
-        .category:nth-child(1) .category-icon {
-            background: linear-gradient(135deg, var(--success), #86efac);
-        }
-
-        .category:nth-child(2) .category-icon {
-            background: linear-gradient(135deg, var(--warning), #fcd34d);
-        }
-
-        .category:nth-child(3) .category-icon {
-            background: linear-gradient(135deg, var(--danger), #fca5a5);
-        }
-
-        .category-text {
-            font-size: 1rem;
-            color: var(--dark);
-            font-weight: 500;
         }
 
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
+            gap: 1rem;
+            margin: 1.5rem 0;
         }
 
         .product-box {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease;
             position: relative;
-            background-color: white;
-            border-radius: 15px;
-            box-shadow: var(--card-shadow);
-            padding: 15px;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 1px solid #e2e8f0;
             overflow: hidden;
         }
 
         .product-box:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .product-box img {
             width: 100%;
-            height: 120px;
+            height: 100px;
             object-fit: contain;
-            margin-bottom: 10px;
-            border-radius: 8px;
+            margin-bottom: 0.75rem;
         }
 
         .product-name {
-            font-size: 0.95rem;
-            color: var(--dark);
-            margin-bottom: 5px;
+            font-size: 0.875rem;
             font-weight: 500;
             white-space: nowrap;
             overflow: hidden;
@@ -316,52 +211,35 @@ if (isset($_GET['delete']) && $_GET['delete'] == 'success') {
         }
 
         .product-price {
-            font-size: 0.9rem;
+            font-size: 0.875rem;
             color: var(--primary);
             font-weight: 600;
         }
 
         .product-actions {
-            display: none;
             position: absolute;
-            top: 10px;
-            right: 10px;
-            background: white;
-            border-radius: 20px;
-            padding: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            top: 0.5rem;
+            right: 0.5rem;
+            display: none;
+            flex-direction: column;
+            gap: 0.25rem;
         }
 
         .product-box:hover .product-actions {
             display: flex;
-            flex-direction: column;
-            gap: 5px;
         }
 
         .action-button {
-            background: white;
-            border: none;
-            width: 30px;
-            height: 30px;
+            width: 1.75rem;
+            height: 1.75rem;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
             color: white;
-        }
-
-        .action-button span {
-            font-size: 16px;
-        }
-
-        .update-button {
-            background: var(--success);
-        }
-
-        .delete-button {
-            background: var(--danger);
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s ease;
         }
 
         .action-button:hover {
@@ -373,31 +251,15 @@ if (isset($_GET['delete']) && $_GET['delete'] == 'success') {
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, var(--primary-light), var(--primary));
-            border-radius: 15px;
-            box-shadow: var(--card-shadow);
-            padding: 15px;
-            text-align: center;
+            background: var(--primary);
             color: white;
+            border-radius: 0.75rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            border: none;
+            transition: all 0.2s ease;
         }
 
         .add-product-box:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-        }
-
-        .add-product-box .material-icons {
-            font-size: 40px;
-            margin-bottom: 10px;
-        }
-
-        .add-product-text {
-            font-size: 0.95rem;
-            font-weight: 500;
+            background: var(--primary-light);
         }
 
         .bottom-nav {
@@ -408,9 +270,8 @@ if (isset($_GET['delete']) && $_GET['delete'] == 'success') {
             background: white;
             display: flex;
             justify-content: space-around;
-            padding: 12px 0;
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-            z-index: 100;
+            padding: 0.75rem 0;
+            box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.1);
         }
 
         .nav-item {
@@ -419,46 +280,20 @@ if (isset($_GET['delete']) && $_GET['delete'] == 'success') {
             align-items: center;
             color: #64748b;
             text-decoration: none;
-            font-size: 0.8rem;
-            transition: all 0.3s ease;
-            padding: 5px 15px;
-            border-radius: 10px;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
         }
 
         .nav-item.active, .nav-item:hover {
             color: var(--primary);
-            background: rgba(58, 123, 213, 0.1);
+            background: rgba(124, 58, 237, 0.1);
         }
 
         .nav-item .material-icons {
-            font-size: 24px;
-            margin-bottom: 3px;
-        }
-
-        .nav-item.active .material-icons {
-            font-weight: bold;
-        }
-
-        /* Success notification */
-        .alert-success {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: var(--success);
-            color: white;
-            padding: 12px 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            animation: slideIn 0.3s ease-out;
-        }
-
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
         }
     </style>
 </head>
@@ -466,51 +301,45 @@ if (isset($_GET['delete']) && $_GET['delete'] == 'success') {
 
     <div class="container">
         <header>
-            <div class="user-info">
-                <a href="profileadmin.php">
-                    <i class="bi bi-person-circle user-icon"></i>
+            <div class="flex items-center gap-3">
+                <a href="profileadmin.php" class="user-icon">
+                    <i class="material-icons">account_circle</i>
                 </a>
-                <div class="user-text">
-                    <span class="user">Hello, Admin</span>
-                    <span class="admin">Apotek Dashboard</span>
+                <div>
+                    <div class="text-sm font-medium text-purple-600">Hello, Admin</div>
+                    <div class="text-base font-semibold">Apotek Dashboard</div>
                 </div>
             </div>
-            <div class="icons-left">
-                <button class="icon-button">
-                    <a href="notifadmin.php">
-                        <span class="material-icons">notifications</span>
-                    </a>
-                </button>
-                <button class="icon-button">
-                    <a href="pickup.php">
-                        <span class="material-icons">local_shipping</span>
-                    </a>
-                </button>
+            <div class="flex gap-3">
+                <a href="notifadmin.php" class="icon-button">
+                    <i class="material-icons">notifications</i>
+                </a>
+                <a href="pickup.php" class="icon-button">
+                    <i class="material-icons">local_shipping</i>
+                </a>
             </div>
         </header>
 
         <h1>Pharmacy Management</h1>
 
-        <div class="search-container">
-            <div class="search-box">
-                <input type="text" placeholder="Search medicines...">
-                <span class="material-icons search-icon">search</span>
-            </div>
+        <div class="search-box">
+            <input type="text" placeholder="Search medicines...">
+            <i class="material-icons search-icon">search</i>
         </div>
 
         <div class="section-title">Medicine Categories</div>
 
         <div class="categories">
             <div class="category">
-                <div class="category-icon">U</div>
+                <div class="category-icon" style="background: var(--success);">U</div>
                 <div class="category-text">General Medicines</div>
             </div>
             <div class="category">
-                <div class="category-icon">B</div>
+                <div class="category-icon" style="background: var(--warning);">B</div>
                 <div class="category-text">Limited Free</div>
             </div>
             <div class="category">
-                <div class="category-icon">K</div>
+                <div class="category-icon" style="background: var(--danger);">K</div>
                 <div class="category-text">Hard Medicines</div>
             </div>
         </div>
@@ -525,35 +354,34 @@ if (isset($_GET['delete']) && $_GET['delete'] == 'success') {
                 <div class="product-price">Rp <?= number_format($obat['harga'], 0, ',', '.') ?></div>
 
                 <div class="product-actions">
-                    <button class="action-button update-button" onclick="window.location.href='updateproduct.php?id=<?= $obat['id'] ?>'">
-                        <span class="material-icons">edit</span>
+                    <button class="action-button" style="background: var(--success);" onclick="window.location.href='updateproduct.php?id=<?= $obat['id'] ?>'">
+                        <i class="material-icons" style="font-size: 1rem;">edit</i>
                     </button>
-                    <button class="action-button delete-button" onclick="deleteProduct(<?= $obat['id'] ?>)">
-                        <span class="material-icons">delete</span>
+                    <button class="action-button" style="background: var(--danger);" onclick="deleteProduct(<?= $obat['id'] ?>)">
+                        <i class="material-icons" style="font-size: 1rem;">delete</i>
                     </button>
                 </div>
             </div>
             <?php endforeach; ?>
             
             <div class="add-product-box" onclick="window.location.href='createproduk.php'">
-                <span class="material-icons">add</span>
-                <div class="add-product-text">Add Medicine</div>
+                <i class="material-icons">add</i>
+                <div class="text-sm mt-1">Add Medicine</div>
             </div>
         </div>
     </div>
 
-    <!-- Bottom Navigation -->
     <nav class="bottom-nav">
         <a href="homeadmin.php" class="nav-item active">
-            <span class="material-icons">home</span>
+            <i class="material-icons">home</i>
             <span>Home</span>
         </a>
         <a href="payment.php" class="nav-item">
-            <span class="material-icons">payments</span>
+            <i class="material-icons">payments</i>
             <span>Payments</span>
         </a>
         <a href="tabeladmin.php" class="nav-item">
-            <span class="material-icons">assessment</span>
+            <i class="material-icons">assessment</i>
             <span>Reports</span>
         </a>
     </nav>
@@ -565,7 +393,6 @@ if (isset($_GET['delete']) && $_GET['delete'] == 'success') {
             }
         }
         
-        // Add active class to current page in bottom nav
         document.addEventListener('DOMContentLoaded', function() {
             const currentPage = window.location.pathname.split('/').pop();
             const navItems = document.querySelectorAll('.nav-item');
@@ -581,4 +408,4 @@ if (isset($_GET['delete']) && $_GET['delete'] == 'success') {
     </script>
 
 </body>
-</html> 
+</html>

@@ -1,146 +1,297 @@
-<html>
+<!DOCTYPE html>
+<html lang="id">
 <head>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apotik Admin - Sales Report</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet" />
-   <script src="https://cdn.tailwindcss.com"></script>
-   <!-- Bootstrap 5 CSS CDN -->
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-   <!-- icon bootstrap -->
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-   <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-        }
-        .bottom-icons {
-            position: fixed;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            justify-content: center;
-            background-color: black;
-            padding: 10px 20px;
-            border-radius: 25px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        :root {
+            --primary: #7c3aed;
+            --primary-light: #8b5cf6;
+            --primary-lighter: #c4b5fd;
+            --dark: #1e1b4b;
+            --light: #f5f3ff;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
         }
 
-        .bottom-icon {
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            padding-bottom: 6rem;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .icon-button {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            transition: all 0.2s ease;
+        }
+
+        .icon-button:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .user-icon {
+            color: var(--primary);
+            font-size: 1.75rem;
+        }
+
+        h1 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin: 1.5rem 0 1rem;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        .section-title:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .report-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: white;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .report-table th {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-weight: 500;
+        }
+
+        .report-table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .report-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .report-table tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+
+        .report-table tr:hover {
+            background-color: #f3f4f6;
+        }
+
+        .action-link {
+            color: var(--primary);
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .action-link.edit:hover {
+            color: var(--success);
+        }
+
+        .action-link.delete:hover {
+            color: var(--danger);
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 0.75rem 0;
+            box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 0 15px;
-            color: #333;
-            cursor: pointer;
+            color: #64748b;
+            text-decoration: none;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
         }
 
-        .bottom-icon .material-icons {
-            font-size: 24px;
-            color: orange;
+        .nav-item.active, .nav-item:hover {
+            color: var(--primary);
+            background: rgba(124, 58, 237, 0.1);
         }
 
-        .bottom-icon .icon-text {
-            font-size: 0.8rem;
-            margin-top: 5px;
-            color: orange;
+        .nav-item .material-icons {
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
         }
 
-        .bottom-icon:nth-child(1) .material-icons,
-        .bottom-icon:nth-child(2) .material-icons {
+        .add-button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: var(--primary);
             color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.2s ease;
         }
 
-        .bottom-icon:nth-child(1) .icon-text,
-        .bottom-icon:nth-child(2) .icon-text {
-            color: white;
+        .add-button:hover {
+            background-color: var(--primary-light);
         }
     </style>
 </head>
-<body class="bg-[#f5f1d6] p-6">
-    <!-- Header Section -->
-    <div class="flex justify-between items-center mb-8">
-        <div class="flex items-center">
-            <i class="fas fa-user-circle text-blue-500 text-3xl"></i>
-            <div class="ml-3">
-                <p class="text-red-500 text-sm">User</p>
-                <p class="text-black font-bold">Admin</p>
+<body>
+
+    <div class="container">
+        <header>
+            <div class="flex items-center gap-3">
+                <a href="profileadmin.php" class="user-icon">
+                    <i class="material-icons">account_circle</i>
+                </a>
+                <div>
+                    <div class="text-sm font-medium text-purple-600">Hello, Admin</div>
+                    <div class="text-base font-semibold">Sales Report</div>
+                </div>
             </div>
-        </div>
-        <div class="flex items-center space-x-6">
-            <i class="fas fa-bell text-gray-700 text-xl hover:text-gray-900 cursor-pointer"></i>
-            <a href="./form_report.php"><i class="fas fa-plus-circle text-gray-700 text-xl hover:text-gray-900 cursor-pointer"></i></a>
+            <div class="flex gap-3">
+                <a href="notifadmin.php" class="icon-button">
+                    <i class="material-icons">notifications</i>
+                </a>
+                <a href="form_report.php" class="icon-button">
+                    <i class="material-icons">add</i>
+                </a>
+            </div>
+        </header>
+
+        <h1>Medicine Sales Report</h1>
+
+        <div class="section-title">Medicine Sales Data</div>
+
+        <div class="overflow-x-auto">
+            <table class="report-table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Date</th>
+                        <th>Medicine Name</th>
+                        <th>Category</th>
+                        <th>Quantity Sold</th>
+                        <th>Unit Price</th>
+                        <th>Total Sales</th>
+                        <th colspan="2">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    include "../service/connection.php";
+                    $id = 1;
+                    $ambildata = mysqli_query($conn, "select * from report");
+                    while ($tampil = mysqli_fetch_array($ambildata)) {
+                        echo "
+                        <tr>
+                            <td>$id</td>
+                            <td>$tampil[Tanggal]</td>
+                            <td>$tampil[Nama_Obat]</td>
+                            <td>$tampil[Kategori]</td>
+                            <td>$tampil[Jumlah_Terjual]</td>
+                            <td>Rp " . number_format($tampil['Harga_Satuan'], 0, ',', '.') . "</td>
+                            <td>Rp " . number_format($tampil['Total_Penjualan'], 0, ',', '.') . "</td>
+                            <td>
+                                <a href='barang-ubah.php?kode=$tampil[Id]' class='action-link edit'>Edit</a>
+                            </td>
+                            <td>
+                                <a href='hapus.php?kode=$tampil[Id]' class='action-link delete'>Delete</a>
+                            </td>
+                        </tr>";
+                        $id++;
+                    }
+                    ?>
+                </tbody>
+            </table>
         </div>
     </div>
 
-    
+    <nav class="bottom-nav">
+        <a href="homeadmin.php" class="nav-item">
+            <i class="material-icons">home</i>
+            <span>Home</span>
+        </a>
+        <a href="payment.php" class="nav-item">
+            <i class="material-icons">payments</i>
+            <span>Payments</span>
+        </a>
+        <a href="form_report.php" class="nav-item active">
+            <i class="material-icons">assessment</i>
+            <span>Reports</span>
+        </a>
+    </nav>
 
-    <!-- Title Section -->
-    <h1 class="text-center text-4xl font-bold text-gray-800 mb-2">REPORT</h1>
-    <hr class="border-t border-gray-400 mb-6">
-
-    <!-- Subtitle Section -->
-    <h2 class="text-red-500 text-2xl font-semibold mb-4">Data Obat</h2>
-
-    <!-- Table Section -->
-    <div class="overflow-x-auto">
-        <table class="w-full border border-gray-300 shadow-lg bg-white rounded-lg overflow-hidden">
-            <thead>
-                <tr class="bg-gray-200 text-gray-800">
-                    <th class="border border-gray-300 p-3 text-left">No</th>
-                    <th class="border border-gray-300 p-3 text-left">Tanggal</th>
-                    <th class="border border-gray-300 p-3 text-left">Nama Obat</th>
-                    <th class="border border-gray-300 p-3 text-left">Kategori</th>
-                    <th class="border border-gray-300 p-3 text-left">Jumlah Terjual</th>
-                    <th class="border border-gray-300 p-3 text-left">Harga Satuan</th>
-                    <th class="border border-gray-300 p-3 text-left">Total Penjualan</th>
-                    <th class="border border-gray-300 p-3 text-center" colspan="2">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                include "../service/connection.php";
-                $id = 1;
-                $ambildata = mysqli_query($conn, "select * from report");
-                while ($tampil = mysqli_fetch_array($ambildata)) {
-                    echo "
-                    <tr class='hover:bg-gray-100 text-gray-800'>
-                        <td class='border border-gray-300 p-3'>$id</td>
-                        <td class='border border-gray-300 p-3'>$tampil[Tanggal]</td>
-                        <td class='border border-gray-300 p-3'>$tampil[Nama_Obat]</td>
-                        <td class='border border-gray-300 p-3'>$tampil[Kategori]</td>
-                        <td class='border border-gray-300 p-3'>$tampil[Jumlah_Terjual]</td>
-                        <td class='border border-gray-300 p-3'>Rp $tampil[Harga_Satuan]</td>
-                        <td class='border border-gray-300 p-3'>Rp $tampil[Total_Penjualan]</td>
-                        <td class='border border-gray-300 p-3 text-center'>
-                            <a href='barang-ubah.php?kode=$tampil[Id]' class='text-blue-500 hover:underline'>Edit</a>
-                        </td>
-                        <td class='border border-gray-300 p-3 text-center'>
-                            <a href='hapus.php?kode=$tampil[Id]' class='text-red-500 hover:underline'>Delete</a>
-                        </td>
-                    </tr>";
-                    $id++;
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = window.location.pathname.split('/').pop();
+            const navItems = document.querySelectorAll('.nav-item');
+            
+            navItems.forEach(item => {
+                if (item.getAttribute('href') === currentPage) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
                 }
-                ?>
-                
-            </tbody>
-        </table>
-        </div>
-    <div class="bottom-icons">
-    <div class="bottom-icon" onclick="window.location.href='homeadmin.php'">
-        <span class="material-icons">home</span>
-        <div class="icon-text">Home</div>
-    </div>
-    <div class="bottom-icon" onclick="window.location.href='payment.php'">
-        <span class="material-icons">payment</span>
-        <div class="icon-text">Payment</div>
-    </div>
-    <div class="bottom-icon" onclick="window.location.href='form_report.php'">
-        <span class="material-icons">report</span>
-        <div class="icon-text">Report</div>
-    </div>
-</div>
-    </div>
+            });
+        });
+    </script>
+
 </body>
 </html>
