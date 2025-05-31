@@ -1,16 +1,15 @@
-# Abaikan folder gambar
-img/** linguist-vendored
+# Paksa semua file .php dianggap PHP
+*.php linguist-language=PHP
 
-# Abaikan file CSS, JS, HTML (jika ada)
+# Abaikan semua file yang bukan kode logika
+img/** linguist-vendored
+vendor/** linguist-vendored
 *.css linguist-vendored
 *.js linguist-vendored
 *.html linguist-vendored
 
-# Abaikan semua file di folder non-logika
-dashboard/** linguist-vendored
-customer/** linguist-vendored
+# Opsional: abaikan semua folder interface
 admin/** linguist-vendored
+customer/** linguist-vendored
+dashboard/** linguist-vendored
 service/** linguist-vendored
-
-# Jika pakai vendor dari composer, abaikan juga
-vendor/** linguist-vendored
