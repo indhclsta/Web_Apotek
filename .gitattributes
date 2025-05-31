@@ -1,10 +1,16 @@
-# Abaikan gambar dan aset visual
+# Abaikan folder gambar
 img/** linguist-vendored
 
-# Abaikan file JS/CSS/HTML kalau nanti ditambahkan
+# Abaikan file CSS, JS, HTML (jika ada)
 *.css linguist-vendored
 *.js linguist-vendored
 *.html linguist-vendored
 
-# Optional: kalau kamu pakai file vendor atau eksternal di masa depan
+# Abaikan semua file di folder non-logika
+dashboard/** linguist-vendored
+customer/** linguist-vendored
+admin/** linguist-vendored
+service/** linguist-vendored
+
+# Jika pakai vendor dari composer, abaikan juga
 vendor/** linguist-vendored
