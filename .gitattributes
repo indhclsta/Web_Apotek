@@ -1,0 +1,10 @@
+# Abaikan gambar dan aset visual
+img/** linguist-vendored
+
+# Abaikan file JS/CSS/HTML kalau nanti ditambahkan
+*.css linguist-vendored
+*.js linguist-vendored
+*.html linguist-vendored
+
+# Optional: kalau kamu pakai file vendor atau eksternal di masa depan
+vendor/** linguist-vendored
